@@ -18,7 +18,8 @@ def scrape():
     newsinfo = soup.find('div', class_='list_text')
     news_title = newsinfo.find('div', class_='content_title').text
     news_p = newsinfo.find('div', class_='article_teaser_body').text
-    return news_title, news_p
+    # return news_title, news_p
+    print("Latest News Info Collected")
 
     url2 = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
     browser.visit(url2)
@@ -26,20 +27,23 @@ def scrape():
     soup2 = bs(html2, 'html.parser')
     featured_image_url = soup2.find('article', class_='carousel_item').footer.a.get("data-fancybox-href")
     featured_image_url =f'https://www.jpl.nasa.gov{featured_image_url}'
-    return featured_image_url
+    print("Featured Image collected")
+    # return featured_image_url
 
     url3 = 'https://twitter.com/marswxreport?lang=en'
     browser.visit(url3)
     html3 = browser.html
     soup3 = bs(html3, 'html.parser')
     mars_weather = soup3.find('p', text=re.compile(' hPa, daylight ')).text
-    return mars_weather
+    print("Mars current weather collected")
+    # return mars_weather
 
     url4 = 'https://space-facts.com/mars/'
-    table = pd.read_html(url4)[0].rename(columns={0:"",1:""})
+    table = pd.read_html(url4)[0].rename(columns={0:"Description",1:"Value"})
 
-    html_table = table.to_html()
-    return html_table
+    html_table = table.to_html(index=False, border=0, classes="table table-hover")
+    # return html_table
+    print("HTML table collected")
 
     url5 = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
     browser.visit(url5)
@@ -56,8 +60,20 @@ def scrape():
         
         imagex = soupx.find('img', class_='wide-image')['src']
         imagex = f"https://astrogeology.usgs.gov{imagex}"
-        print(imagex + " image url collected")
+        print("Image url collected")
         
         imgdict = {"title":titlex, "img_url":imagex}
         hemisphere_image_urls.append(imgdict)
-    return hemisphere_image_urls
+    # return hemisphere_image_urls
+
+    MarsInfo = {
+        "news_title":news_title,
+        "news_p":news_p,
+        "featured_image_url":featured_image_url,
+        "mars_weather":mars_weather,
+        "html_table":html_table,
+        "hemisphere_image_urls":hemisphere_image_urls
+    }
+    print("Information Collection Complete")
+    return MarsInfo
+    
