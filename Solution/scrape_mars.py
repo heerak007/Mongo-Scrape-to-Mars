@@ -7,13 +7,15 @@ import pandas as pd
 import re, time
 
 def scrape():
-    # switch executable_path depending on windows or mac users, set to windows currently
-    executable_path = {'executable_path': 'chromedriver.exe'}
-    # executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
+    # switch executable_path depending on windows or mac users, 
+    # may need to use from selenium import webdriver
+    # executable_path = {'executable_path': 'chromedriver.exe'}
+    executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
     browser = Browser('chrome', **executable_path, headless=False)
 
     url = 'https://mars.nasa.gov/news/'
     browser.visit(url)
+    #time delay is so that page can load and all informatin can be scraped
     time.sleep(5)
     html = browser.html
     soup = bs(html, 'html.parser')
