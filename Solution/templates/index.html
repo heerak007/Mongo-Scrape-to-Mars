@@ -8,6 +8,27 @@
   <title>Mongo-Scrape to Mars</title>
   <link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <!-- style for footer, since css file cannot be called through flask  -->
+  <style>
+      body {
+        position: relative;
+        margin: 0;
+        padding-bottom: 6rem;
+        min-height: 100%;
+        font-family: "Helvetica Neue", Arial, sans-serif;
+      }
+  
+      .footer {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: 1rem;
+        background-color: #efefef;
+        text-align: center;
+      }
+  
+  </style>
 </head>
 
 <body>
@@ -48,11 +69,9 @@
           <div class="card border-secondary mb-3">
               <h3 class="card-header">Planet Information</h3>
               <div class="card-body">
-                <p class="card-text">{{infoList.html_table}}</p>
+                <p class="card-text">{{infoList.html_table | safe}}</p>
               </div>
           </div>
-          <!-- <br> -->
-          <!-- <object type="text/html" data={{infoList.html_table}}></object> -->
         </div><!-- table -->
 
       </div><!-- right column -->
@@ -92,10 +111,12 @@
   
     </div><!-- hemisphere2 -->
 
+    <br>
 
-    
+    <div class="footer">© 2018 Copyright: <strong>Heerak Amin</strong></div>
 
   </div>
+
 </body>
 
 </html>

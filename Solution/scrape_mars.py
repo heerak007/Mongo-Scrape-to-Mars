@@ -7,7 +7,9 @@ import pandas as pd
 import re, time
 
 def scrape():
-    executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
+    # switch executable_path depending on windows or mac users, set to windows currently
+    executable_path = {'executable_path': 'chromedriver.exe'}
+    # executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
     browser = Browser('chrome', **executable_path, headless=False)
 
     url = 'https://mars.nasa.gov/news/'
